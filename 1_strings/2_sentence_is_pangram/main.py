@@ -7,6 +7,10 @@
 pytest ./2_sentence_is_pangram/test.py
 """
 
+import string
 
 def is_sentence_is_pangram(sentence: str) -> bool:
-    """Пишите ваш код здесь."""
+    setted = set(sentence.lower())
+    alphabet = set(string.ascii_lowercase)
+    return setted == alphabet
+
