@@ -20,6 +20,13 @@ def get_wrong_article() -> str:
 
 def recover_article() -> str:
     wrong_article = get_wrong_article()
-
-    # Ваш код ниже, возвращайте уже отредактированный текст!
+    wrong_article = wrong_article.replace('!',  '') #Убираем '!'
+    wrong_article = wrong_article.split(SPLIT_SYMBOL) #Сплитим
+    reversed_sentences = [sentence[::-1] for sentence in wrong_article] #Разворачиваем
+    wrong_article = SPLIT_SYMBOL.join(reversed_sentences) #Соединяем
+    wrong_article = wrong_article.lower() #Понижаем
+    wrong_article = wrong_article.replace('woof-woof', 'cat') #Я бы про собак и оставил
+    lines = wrong_article.split(SPLIT_SYMBOL) #Выделяем отдельные лайны
+    wrong_article = [line.capitalize() for line in lines] #Капитализируем первые буквы
+    wrong_article = SPLIT_SYMBOL.join(wrong_article) #Вуаля
     return wrong_article
