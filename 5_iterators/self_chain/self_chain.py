@@ -4,9 +4,20 @@ T = TypeVar("T")
 
 
 def chain(*iterables: Iterable[T]) -> Generator[T, None, None]:
-    """Пишите ваш код здесь"""
-
+    for iterable in iterables:
+        yield from iterable
 
 class Chain:
     def __init__(self, *iterables: Iterable[T]):
-        """Реализуйте класс ниже"""
+        self.iterables = iter(iterables)
+        self.current_iter = iter(next(self.iterables, []))
+
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> T:
+        while True:
+            try:
+                return next(self.current_iter)
+            except StopIteration:
+                self.current_iter = iter(next(self.iterables))
