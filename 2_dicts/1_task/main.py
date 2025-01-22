@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SPLIT_SYMBOL = '\n'
@@ -22,5 +23,18 @@ def get_parsed_employees_info() -> list[dict[str, int | str]]:
     _ = get_employees_info()
     parsed_employees_info = []
 
-    # Ваш код ниже
+    keys = ["id", "name", "last_name", "age", "salary", "position"]
+    for sentence in _:
+
+        by_word = sentence.split()
+        employee_info = {}
+
+        for idx in range(len(by_word)):
+            if by_word[idx] in keys:
+                employee_info[by_word[idx]] = by_word[idx + 1]
+
+        employee_info["id"], employee_info["age"] = int(employee_info["id"]), int(employee_info["age"])
+        employee_info["salary"] = Decimal(employee_info["salary"])
+
+        parsed_employees_info.append(employee_info)
     return parsed_employees_info
