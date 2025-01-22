@@ -1,0 +1,37 @@
+class SubSpring:
+    def __init__(self, start_node, end_node, segment_count, stiffness, damping, density):
+        self.nodes = []
+        self.springs = []
+        segment_length = math.sqrt((end_node.x - start_node.x)**2 + (end_node.y - start_node.y)**2) / segment_count
+
+        # Node creation
+        for i in range(segment_count + 1):
+            t = i / segment_count
+            x = start_node.x * (1 - t) + end_node.x * t
+            y = start_node.y * (1 - t) + end_node.y * t
+            is_fixed = i == 0 and start_node.fixed or i == segment_count and end_node.fixed
+            node = Node(x, y, mass=density * segment_length, fixed=is_fixed)
+            self.nodes.append(node)
+
+        # Spring creation
+        for i in range(segment_count):
+            self.springs.append(Spring(self.nodes[i], self.nodes[i + 1], segment_length, stiffness, damping))
+
+class SubSpring:
+    def __init__(self, start_node, end_node, segment_count, stiffness, damping, density):
+        self.nodes = []
+        self.springs = []
+        segment_length = math.sqrt((end_node.x - start_node.x)**2 + (end_node.y - start_node.y)**2) / segment_count
+
+        # Node creation
+        for i in range(segment_count + 1):
+            t = i / segment_count
+            x = start_node.x * (1 - t) + end_node.x * t
+            y = start_node.y * (1 - t) + end_node.y * t
+            is_fixed = i == 0 and start_node.fixed or i == segment_count and end_node.fixed
+            node = Node(x, y, mass=density * segment_length, fixed=is_fixed)
+            self.nodes.append(node)
+
+        # Spring creation
+        for i in range(segment_count):
+            self.springs.append(Spring(self.nodes[i], self.nodes[i + 1], segment_length, stiffness, damping))
